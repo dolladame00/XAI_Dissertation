@@ -81,7 +81,7 @@ if __name__ == "__main__":
             features = extract_features(file_path)
             if features:
                 all_features.append(features)
-                labels.append(1) # Label 1 for malware
+                labels.append(1)
 
     benign_dir = '/home/damian/Dissertation_Work/training_samples/benign_files/100_windows\system32'
     print(f"Processing benign files in: {benign_dir}")
@@ -91,7 +91,7 @@ if __name__ == "__main__":
             features = extract_features(file_path)
             if features:
                 all_features.append(features)
-                labels.append(0) # Label 0 for benign
+                labels.append(0)
 
     print(f"Successfully processed {len(all_features)} files.")
 

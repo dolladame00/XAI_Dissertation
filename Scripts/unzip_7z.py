@@ -3,7 +3,7 @@ import subprocess
 
 source_directory = '/home/damian/Dissertation_Work/training_samples/malicious_static/LockBit.PE'
 target_directory = '/home/damian/Dissertation_Work/training_samples/malicious_static/LockBit.PE/unzipped_LockBit_PE'
-password = 'infected'  # Note: no 'b' prefix here
+password = 'infected'
 
 def unzip_all_files():
     print("Starting the unzipping process...")
@@ -22,12 +22,11 @@ def unzip_all_files():
         zip_path = os.path.join(source_directory, zip_file)
         print(f"  -> Unzipping {zip_file}...")
 
-        # Build 7z command
         cmd = [
             '7z', 'x', zip_path,
             f'-o{target_directory}',
             f'-p{password}',
-            '-y'  # Assume Yes on all queries
+            '-y'
         ]
 
         result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
