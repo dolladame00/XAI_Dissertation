@@ -24,15 +24,12 @@ def extract_features(file_path):
 
     features['filename'] = os.path.basename(file_path)
     features['filesize'] = os.path.getsize(file_path)
-
     features['e_magic'] = pe.DOS_HEADER.e_magic
     features['e_lfanew'] = pe.DOS_HEADER.e_lfanew
-
     features['Machine'] = pe.FILE_HEADER.Machine
     features['NumberOfSections'] = pe.FILE_HEADER.NumberOfSections
     features['TimeDateStamp'] = pe.FILE_HEADER.TimeDateStamp
     features['Characteristics'] = pe.FILE_HEADER.Characteristics
-
     features['AddressOfEntryPoint'] = pe.OPTIONAL_HEADER.AddressOfEntryPoint
     features['ImageBase'] = pe.OPTIONAL_HEADER.ImageBase
     features['SectionAlignment'] = pe.OPTIONAL_HEADER.SectionAlignment
