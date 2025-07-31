@@ -70,25 +70,36 @@ if __name__ == "__main__":
     all_features = []
     labels = []
 
-    malware_dir = '/home/damian/Dissertation_Work/training_samples/malicious_static/LockBit.PE/unzipped_LockBit_PE'
-    print(f"Processing malware files in: {malware_dir}")
-    for root, _, files in os.walk(malware_dir):
-        for file in files:
-            file_path = os.path.join(root, file)
-            features = extract_features(file_path)
-            if features:
-                all_features.append(features)
-                labels.append(1)
+    malware_parent_dir = '/home/damian/Dissertation_Work/training_samples/malicious_static'
+    benign_parent_dir = '/home/damian/Dissertation_Work/training_samples/benign_files/benign_windows'
 
-    benign_dir = '/home/damian/Dissertation_Work/training_samples/benign_files/100_windows\system32'
-    print(f"Processing benign files in: {benign_dir}")
-    for root, _, files in os.walk(benign_dir):
-        for file in files:
-            file_path = os.path.join(root, file)
-            features = extract_features(file_path)
-            if features:
-                all_features.append(features)
-                labels.append(0)
+    print(f"Processing directories in: {malware_parent_dir}")
+    for family_folder in os.listdir(malware_parent_dir):
+        malware_dir = os.path.join(malware_parent_dir, family_folder, 'unzipped')
+        if not os.path.isdir(malware_dir):
+            continue
+        print(f" -> Processing family: {family_folder}")
+        for root, _, files in os.walk(malware_dir):
+            for file in files:
+                file_path = os.path.join(root, file)
+                features = extract_features(file_path)
+                if features:
+                    all_features.append(features)
+                    labels.append(1) #
+
+    print(f"\nProcessing benign directories in: {benign_parent_dir}")
+    for benign_folder in os.listdir(benign_parent_dir):
+        benign_dir = os.path.join(benign_parent_dir, benign_folder)
+        if not os.path.isdir(benign_dir):
+            continue
+        print(f" -> Processing source: {benign_folder}")
+        for root, _, files in os.walk(benign_dir):
+            for file in files:
+                file_path = os.path.join(root, file)
+                features = extract_features(file_path)
+                if features:
+                    all_features.append(features)
+                    labels.append(0)
 
     print(f"Successfully processed {len(all_features)} files.")
 
