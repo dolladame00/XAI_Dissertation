@@ -4,6 +4,11 @@ import math
 import pandas as pd
 
 
+malware_parent_dir = '/home/damian/Dissertation_Work/training_samples/malicious_static'
+benign_parent_dir = '/home/damian/Dissertation_Work/training_samples/benign_files/benign_windows'
+output_csv_path = '/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/File Data for Training/file_features.csv'
+
+
 def get_entropy(data):
     if not data:
         return 0
@@ -70,8 +75,7 @@ if __name__ == "__main__":
     all_features = []
     labels = []
 
-    malware_parent_dir = '/home/damian/Dissertation_Work/training_samples/malicious_static'
-    benign_parent_dir = '/home/damian/Dissertation_Work/training_samples/benign_files/benign_windows'
+
 
     print(f"Processing directories in: {malware_parent_dir}")
     for family_folder in os.listdir(malware_parent_dir):
@@ -108,7 +112,6 @@ if __name__ == "__main__":
 
     df.fillna(0, inplace=True)
 
-    output_csv_path = '/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/File Data for Training/file_features.csv'
     df.to_csv(output_csv_path, index=False)
 
     print(f"Feature dataset saved to {output_csv_path}")
