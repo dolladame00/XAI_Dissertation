@@ -89,7 +89,7 @@ if __name__ == "__main__":
                 features = extract_features(file_path)
                 if features:
                     all_features.append(features)
-                    labels.append(1) #
+                    labels.append(1)
 
     print(f"\nProcessing benign directories in: {benign_parent_dir}")
     for benign_folder in os.listdir(benign_parent_dir):
