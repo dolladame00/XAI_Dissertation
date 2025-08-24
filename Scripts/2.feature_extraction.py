@@ -6,7 +6,7 @@ import pandas as pd
 
 malware_parent_dir = '/home/damian/Dissertation_Work/training_samples/malicious_static'
 benign_parent_dir = '/home/damian/Dissertation_Work/training_samples/benign_files/benign_windows'
-output_csv_path = '/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/File Data for Training/file_features.csv'
+output_csv_path = '/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/File_Data_for_Training/file_features.csv'
 
 
 def get_entropy(data):

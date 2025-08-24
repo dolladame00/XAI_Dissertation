@@ -7,7 +7,7 @@ import numpy as np
 
 
 DATASET_PATH = '/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/File_Data_for_Training/file_features.csv'
-MODEL_PATH = 'xgboost_malware_model.joblib'
+MODEL_PATH = '/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/File_Data_for_Training/xgboost_malware_model.joblib'
 
 def advanced_shap_analysis():
 

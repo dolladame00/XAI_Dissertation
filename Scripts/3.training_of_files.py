@@ -6,7 +6,8 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 
 df = pd.read_csv('/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/File_Data_for_Training/file_features.csv')
 DATASET_PATH = '/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/File_Data_for_Training/file_features.csv'
-model_filename = 'xgboost_malware_model.joblib'
+#model_filename = 'xgboost_malware_model.joblib'
+output_path='/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/File_Data_for_Training/xgboost_malware_model.joblib'
 
 def main():
 
@@ -40,8 +41,8 @@ def main():
 
     print("\nTraining the XGBoost model...")
 
-#I will be treaking these parameters for the best results, but I have set them to the default values for now, but I will play around with them later on :)
-    model = xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss', n_estimators=120, max_depth=4,random_state=39,)
+
+    model = xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss', n_estimators=115, max_depth=4,random_state=39,)
     model.fit(X_train, y_train)
 
     print("Model training complete.")
@@ -54,10 +55,7 @@ def main():
     print(f"\nModel Accuracy: {accuracy * 100:.2f}%")
 
     print("\nConfusion Matrix:")
-    print(confusion_matrix(y_test, y_pred))
-
-    print("\nConfusion Matrix:")
-    cm = confusion_matrix(y_test, y_pred) # FIX: Assign the matrix to the 'cm' variable
+    cm = confusion_matrix(y_test, y_pred)
     print(cm)
 
     tn, fp, fn, tp = cm.ravel()
@@ -68,8 +66,8 @@ def main():
     print(classification_report(y_test, y_pred, target_names=['Benign (0)', 'Malware (1)']))
 
 
-    joblib.dump(model, model_filename)
-    print(f"Model has been successully ran and the results have been saved  to {model_filename} in the same directory that this program was ran in")
+    joblib.dump(model, output_path)
+    print(f"Model has been successully ran and the results have been saved  to {output_path} ")
 
 if __name__ == "__main__":
     main()

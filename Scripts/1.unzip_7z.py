@@ -49,7 +49,7 @@ def unzip_all_files():
                 successful += 1
             else:
                 print(f"  -> ERROR: Failed to unzip {zip_file}")
-                print(result.stderr.decode().strip()) # .strip() cleans up extra lines
+                print(result.stderr.decode().strip())
                 failed += 1
 
         print(f"Finished. Success: {successful}, Failed: {failed}")
