@@ -44,6 +44,7 @@ def advanced_shap_analysis():
     plt.close()
 
     print("   Saving interaction summary plot (interaction_summary_plot.png)...")
+    plt.figure(figsize=(10, 8))
     shap.summary_plot(shap_interaction_values, X_test, show=False)
     plt.savefig('/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/Result Data/interaction_summary_plot.png', bbox_inches='tight', dpi=300)
     plt.close()
@@ -59,6 +60,26 @@ def advanced_shap_analysis():
         interaction_index="auto"
     )
     plt.savefig('/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/Result Data/dependence_plot.png', bbox_inches='tight', dpi=300)
+    plt.close()
+
+    print(f"  -> 4. Saving ZOOMED view of dependence plot, excluding top 22 outliers...")
+
+    checksum_values = X_test[top_feature].sort_values(ascending=False)
+    threshold = checksum_values.iloc[22]
+
+    mask = X_test[top_feature] <= threshold
+
+    X_test_filtered = X_test[mask]
+    shap_values_filtered = shap_values[mask.values]
+
+    shap.dependence_plot(
+        top_feature,
+        shap_values_filtered.values,
+        X_test_filtered,
+        show=False,
+        interaction_index="auto"
+    )
+    plt.savefig('/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/Result Data/dependence_plot_zoomed.png', bbox_inches='tight', dpi=300)
     plt.close()
 
     print("\nAdvanced SHAP analysis complete. All plots have been saved.")
