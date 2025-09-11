@@ -38,19 +38,13 @@ def advanced_shap_analysis():
 
     print("\nGenerating and saving plots...")
 
-    print("   Saving global summary plot (summary_plot.png)...")
+    print("-----Saving global summary plot (summary_plot.png)...")
     shap.summary_plot(shap_values, X_test, show=False)
     plt.savefig('/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/Result Data/summary_plot.png', bbox_inches='tight', dpi=300)
     plt.close()
 
-    print("   Saving interaction summary plot (interaction_summary_plot.png)...")
-    plt.figure(figsize=(10, 8))
-    shap.summary_plot(shap_interaction_values, X_test, show=False)
-    plt.savefig('/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/Result Data/interaction_summary_plot.png', bbox_inches='tight', dpi=300)
-    plt.close()
-
     top_feature = X_test.columns[np.abs(shap_values.values).mean(0).argmax()]
-    print(f"  Saving dependence plot for top feature: '{top_feature}' (dependence_plot.png)...")
+    print(f"-----Saving dependence plot for top feature: '{top_feature}' (dependence_plot.png)...")
 
     shap.dependence_plot(
         top_feature,
@@ -62,7 +56,7 @@ def advanced_shap_analysis():
     plt.savefig('/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/Result Data/dependence_plot.png', bbox_inches='tight', dpi=300)
     plt.close()
 
-    print(f"  -> 4. Saving zoomed view of dependence plot, excluding top 22 outliers...")
+    print(f"-----Saving zoomed view of dependence plot, excluding top 22 outliers...")
 
     checksum_values = X_test[top_feature].sort_values(ascending=False)
     threshold = checksum_values.iloc[22]
@@ -82,7 +76,7 @@ def advanced_shap_analysis():
     plt.savefig('/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/Result Data/dependence_plot_zoomed.png', bbox_inches='tight', dpi=300)
     plt.close()
 
-    print(f"  -> 4. Saving SUPER ZOOMED view of dependence plot, excluding top 65 outliers...")
+    print(f"-----Saving SUPER ZOOMED view of dependence plot, excluding top 65 outliers...")
 
     checksum_values = X_test[top_feature].sort_values(ascending=False)
     threshold = checksum_values.iloc[65]
