@@ -27,10 +27,10 @@ def extract_features(file_path):
     except pefile.PEFormatError:
         return None
 
-    features['filename'] = os.path.basename(file_path)
-    features['filesize'] = os.path.getsize(file_path)
-    features['e_magic'] = pe.DOS_HEADER.e_magic
-    features['e_lfanew'] = pe.DOS_HEADER.e_lfanew
+    features['Filename'] = os.path.basename(file_path)
+    features['Filesize'] = os.path.getsize(file_path)
+    features['E_magic'] = pe.DOS_HEADER.e_magic
+    features['E_lfanew'] = pe.DOS_HEADER.e_lfanew
     features['Machine'] = pe.FILE_HEADER.Machine
     features['NumberOfSections'] = pe.FILE_HEADER.NumberOfSections
     features['TimeDateStamp'] = pe.FILE_HEADER.TimeDateStamp
@@ -54,10 +54,10 @@ def extract_features(file_path):
             section_entropies.append(get_entropy(section.get_data()))
             section_sizes.append(section.SizeOfRawData)
 
-    features['sections_mean_entropy'] = sum(section_entropies) / len(section_entropies) if section_entropies else 0
-    features['sections_min_entropy'] = min(section_entropies) if section_entropies else 0
-    features['sections_max_entropy'] = max(section_entropies) if section_entropies else 0
-    features['sections_mean_size'] = sum(section_sizes) / len(section_sizes) if section_sizes else 0
+    features['SectionsMeanEntropy'] = sum(section_entropies) / len(section_entropies) if section_entropies else 0
+    features['SectionsMinEntropy'] = min(section_entropies) if section_entropies else 0
+    features['SectionsMaxEntropy'] = max(section_entropies) if section_entropies else 0
+    features['SectionsMeanSize'] = sum(section_sizes) / len(section_sizes) if section_sizes else 0
 
     if hasattr(pe, 'DIRECTORY_ENTRY_IMPORT'):
         features['imports'] = len(pe.DIRECTORY_ENTRY_IMPORT)

@@ -13,7 +13,7 @@ def export_complete_shap_results():
     df = pd.read_csv(DATASET_PATH)
 
     y = df['label']
-    X = df.drop(['label', 'filename'], axis=1)
+    X = df.drop(['label', 'Filename'], axis=1)
 
     _, X_test, _, y_test = train_test_split(X, y, test_size=0.25, random_state=39, stratify=y)
 

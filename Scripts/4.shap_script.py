@@ -22,7 +22,7 @@ def advanced_shap_analysis():
     df = pd.read_csv(DATASET_PATH)
 
     y = df['label']
-    X = df.drop(['label', 'filename'], axis=1)
+    X = df.drop(['label', 'Filename'], axis=1)
 
     _, X_test, _, _ = train_test_split(X, y, test_size=0.25, random_state=39, stratify=y)
     print(f"Test data prepared with {len(X_test)} samples.")
@@ -62,7 +62,7 @@ def advanced_shap_analysis():
     plt.savefig('/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/Result Data/dependence_plot.png', bbox_inches='tight', dpi=300)
     plt.close()
 
-    print(f"  -> 4. Saving ZOOMED view of dependence plot, excluding top 22 outliers...")
+    print(f"  -> 4. Saving zoomed view of dependence plot, excluding top 22 outliers...")
 
     checksum_values = X_test[top_feature].sort_values(ascending=False)
     threshold = checksum_values.iloc[22]
@@ -80,6 +80,26 @@ def advanced_shap_analysis():
         interaction_index="auto"
     )
     plt.savefig('/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/Result Data/dependence_plot_zoomed.png', bbox_inches='tight', dpi=300)
+    plt.close()
+
+    print(f"  -> 4. Saving SUPER ZOOMED view of dependence plot, excluding top 65 outliers...")
+
+    checksum_values = X_test[top_feature].sort_values(ascending=False)
+    threshold = checksum_values.iloc[65]
+
+    mask = X_test[top_feature] <= threshold
+
+    X_test_filtered = X_test[mask]
+    shap_values_filtered = shap_values[mask.values]
+
+    shap.dependence_plot(
+        top_feature,
+        shap_values_filtered.values,
+        X_test_filtered,
+        show=False,
+        interaction_index="auto"
+    )
+    plt.savefig('/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/Result Data/dependence_plot_super_zoomed.png', bbox_inches='tight', dpi=300)
     plt.close()
 
     print("\nAdvanced SHAP analysis complete. All plots have been saved.")

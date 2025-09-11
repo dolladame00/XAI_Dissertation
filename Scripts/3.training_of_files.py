@@ -6,7 +6,6 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 
 df = pd.read_csv('/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/File_Data_for_Training/file_features.csv')
 DATASET_PATH = '/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/File_Data_for_Training/file_features.csv'
-#model_filename = 'xgboost_malware_model.joblib'
 output_path='/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/File_Data_for_Training/xgboost_malware_model.joblib'
 
 def main():
@@ -30,7 +29,7 @@ def main():
 
     y   = df['label']
 
-    X = df.drop(['label', 'filename'], axis=1)
+    X = df.drop(['label', 'Filename'], axis=1)
 
     print(f"Features (X) shape: {X.shape}")
     print(f"Labels (y) shape: {y.shape}")
