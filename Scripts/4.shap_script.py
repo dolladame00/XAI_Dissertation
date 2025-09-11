@@ -9,6 +9,7 @@ import numpy as np
 DATASET_PATH = '/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/File_Data_for_Training/file_features.csv'
 MODEL_PATH = '/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/File_Data_for_Training/xgboost_malware_model.joblib'
 
+
 def advanced_shap_analysis():
 
     print(f"Loading model from: {MODEL_PATH}")
@@ -40,8 +41,14 @@ def advanced_shap_analysis():
 
     print("-----Saving global summary plot (summary_plot.png)...")
     shap.summary_plot(shap_values, X_test, show=False)
+    plt.title(f"Global Summary Plot")
     plt.savefig('/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/Result Data/summary_plot.png', bbox_inches='tight', dpi=300)
     plt.close()
+
+    feature_importances = np.abs(shap_values.values).mean(0)
+    sorted_indices = np.argsort(feature_importances)
+    first_feature_name = X_test.columns[sorted_indices[-1]]
+    second_feature_name = X_test.columns[sorted_indices[-2]]
 
     top_feature = X_test.columns[np.abs(shap_values.values).mean(0).argmax()]
     print(f"-----Saving dependence plot for top feature: '{top_feature}' (dependence_plot.png)...")
@@ -53,6 +60,7 @@ def advanced_shap_analysis():
         show=False,
         interaction_index="auto"
     )
+    plt.title(f"SHAP Dependence Plot for {first_feature_name}")
     plt.savefig('/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/Result Data/dependence_plot.png', bbox_inches='tight', dpi=300)
     plt.close()
 
@@ -73,6 +81,7 @@ def advanced_shap_analysis():
         show=False,
         interaction_index="auto"
     )
+    plt.title(f"SHAP Dependence Plot for {first_feature_name} excluding the top 22 outliers ")
     plt.savefig('/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/Result Data/dependence_plot_zoomed.png', bbox_inches='tight', dpi=300)
     plt.close()
 
@@ -93,7 +102,20 @@ def advanced_shap_analysis():
         show=False,
         interaction_index="auto"
     )
+    plt.title(f"SHAP Dependence Plot for {first_feature_name} excluding the top 65 outliers ")
     plt.savefig('/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/Result Data/dependence_plot_super_zoomed.png', bbox_inches='tight', dpi=300)
+    plt.close()
+
+    print(f"-----Saving dependence plot for second top feature: '{second_feature_name}'...")
+    shap.dependence_plot(
+        second_feature_name,
+        shap_values.values,
+        X_test,
+        show=False,
+        interaction_index="auto"
+    )
+    plt.title(f"SHAP Dependence Plot for {second_feature_name}")
+    plt.savefig(f'/home/damian/Dissertation_Work/GitHub_Commits/XAI_Dissertation/Result Data/dependence_plot_{second_feature_name}.png', bbox_inches='tight', dpi=300)
     plt.close()
 
     print("\nAdvanced SHAP analysis complete. All plots have been saved.")
