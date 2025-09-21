@@ -1,3 +1,4 @@
+#This script unzips password-protected malware archives
 import os
 import subprocess
 

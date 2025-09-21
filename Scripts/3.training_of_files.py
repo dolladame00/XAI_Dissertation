@@ -1,3 +1,4 @@
+#This script trains the XGBoost classifier and saves the final model
 import pandas as pd
 import xgboost as xgb
 import joblib

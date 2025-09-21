@@ -1,3 +1,4 @@
+#This script parses PE files and extracts static features into a CSV
 import pefile
 import os
 import math
